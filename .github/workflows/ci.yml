@@ -157,7 +157,7 @@ jobs:
           HYPOTHESIS_PROFILE: slow
 
       - uses: mxschmitt/action-tmate@v3
-        if: failure()
+        if: ${{ matrix.python-version == 'pypy3.7' }}
 
   lint:
     runs-on: ubuntu-latest
