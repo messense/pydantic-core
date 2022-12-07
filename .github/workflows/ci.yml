@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - debug-pypy
     tags:
       - '**'
   pull_request: {}
@@ -150,7 +151,13 @@ jobs:
 
       - run: pip freeze
 
-      - run: pytest
+      - run: make test
+        env:
+          BENCHMARK_VS_PYDANTIC: 1
+          HYPOTHESIS_PROFILE: slow
+
+      - uses: mxschmitt/action-tmate@v3
+        if: failure()
 
   lint:
     runs-on: ubuntu-latest
